@@ -33,6 +33,7 @@
 			"name": "AdventureWorksPipelines"
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-09-23T14:31:16Z"
-	}
+		"lastPublishTime": "2022-01-11T13:32:38Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
 }

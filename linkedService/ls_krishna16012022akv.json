@@ -1,0 +1,10 @@
+{
+	"name": "ls_krishna16012022akv",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://krishna16012022akv.vault.azure.net/"
+		}
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "ds_logtablenames001",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_asqldb_logtable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "VW_TableList"
+		}
+	}
+}

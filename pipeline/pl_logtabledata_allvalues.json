@@ -1,5 +1,5 @@
 {
-	"name": "pl_logtabledata_firstrowonly",
+	"name": "pl_logtabledata_allvalues",
 	"properties": {
 		"activities": [
 			{
@@ -23,6 +23,27 @@
 					"dataset": {
 						"referenceName": "ds_logtablenames001",
 						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "tablenames",
+					"value": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
 					}
 				}
 			},
@@ -50,7 +71,7 @@
 					"storedProcedureParameters": {
 						"TableName": {
 							"value": {
-								"value": "@activity('Lookup1').output.firstRow.name",
+								"value": "@activity('Lookup1').output.value",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -63,6 +84,11 @@
 				}
 			}
 		],
+		"variables": {
+			"tablenames": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }

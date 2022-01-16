@@ -1,5 +1,5 @@
 {
-	"name": "pl_logtabledata_firstrowonly",
+	"name": "pl_logtabledata_allvalues_setvariable",
 	"properties": {
 		"activities": [
 			{
@@ -23,12 +23,13 @@
 					"dataset": {
 						"referenceName": "ds_logtablenames001",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
-				"name": "Stored procedure1",
-				"type": "SqlServerStoredProcedure",
+				"name": "Set variable1",
+				"type": "SetVariable",
 				"dependsOn": [
 					{
 						"activity": "Lookup1",
@@ -37,32 +38,21 @@
 						]
 					}
 				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[usp_LogTableNames]",
-					"storedProcedureParameters": {
-						"TableName": {
-							"value": {
-								"value": "@activity('Lookup1').output.firstRow.name",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
+					"variableName": "tablenames",
+					"value": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
 					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_asqldb_logtable",
-					"type": "LinkedServiceReference"
 				}
 			}
 		],
+		"variables": {
+			"tablenames": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }

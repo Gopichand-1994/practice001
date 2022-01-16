@@ -1,0 +1,22 @@
+{
+	"name": "ls_asqldb_logtable",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=krishnadb16012022.database.windows.net;Initial Catalog=krishnadb;User ID=krishnadb",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_krishna16012022akv",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "asqldb16012022"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime16012022",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

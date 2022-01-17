@@ -5,20 +5,12 @@
 			"referenceName": "ls_asqldb_logtable",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"schematable": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": {
-				"value": "@dataset().schematable",
-				"type": "Expression"
-			}
+			"table": "students"
 		}
 	}
 }

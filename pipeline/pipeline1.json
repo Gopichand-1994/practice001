@@ -220,13 +220,7 @@
 										"outputs": [
 											{
 												"referenceName": "ds_asqldb_krishnablob16012022a",
-												"type": "DatasetReference",
-												"parameters": {
-													"schematable": {
-														"value": "@item().name",
-														"type": "Expression"
-													}
-												}
+												"type": "DatasetReference"
 											}
 										]
 									}

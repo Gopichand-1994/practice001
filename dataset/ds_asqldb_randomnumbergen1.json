@@ -1,0 +1,12 @@
+{
+	"name": "ds_asqldb_randomnumbergen1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_asqldb_logtable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

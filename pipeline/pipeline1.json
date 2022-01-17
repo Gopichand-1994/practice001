@@ -71,6 +71,7 @@
 						"value": "@activity('Filter1').output.Value",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Get Metadatafilesize",
@@ -121,7 +122,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@greaterOrEquals(activity('Get Metadatafilesize').output.size,100)",
+									"value": "@greaterOrEquals(activity('Get Metadatafilesize').output.size,150)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
@@ -183,7 +184,6 @@
 												"storeSettings": {
 													"type": "AzureBlobStorageReadSettings",
 													"recursive": true,
-													"wildcardFileName": "*",
 													"enablePartitionDiscovery": false
 												},
 												"formatSettings": {
@@ -192,7 +192,6 @@
 											},
 											"sink": {
 												"type": "AzureSqlSink",
-												"tableOption": "autoCreate",
 												"disableMetricsCollection": false
 											},
 											"enableStaging": false,

@@ -18,6 +18,11 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderStoredProcedureName": "[dbo].[randomnumbergenerator]",
+						"storedProcedureParameters": {
+							"randomnumber": {
+								"type": "Int32"
+							}
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},

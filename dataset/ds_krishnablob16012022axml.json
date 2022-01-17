@@ -1,0 +1,17 @@
+{
+	"name": "ds_krishnablob16012022axml",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_krishnablob16012022a",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "input"
+			}
+		}
+	}
+}

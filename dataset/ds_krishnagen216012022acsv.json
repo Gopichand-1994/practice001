@@ -1,0 +1,23 @@
+{
+	"name": "ds_krishnagen216012022acsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_krishnagen216012022a",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "silver",
+				"fileSystem": "global"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

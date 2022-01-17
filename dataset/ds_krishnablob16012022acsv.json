@@ -1,0 +1,35 @@
+{
+	"name": "ds_krishnablob16012022acsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_krishnablob16012022a",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "colno",
+				"type": "String"
+			},
+			{
+				"name": "colname",
+				"type": "String"
+			},
+			{
+				"name": "loc",
+				"type": "String"
+			}
+		]
+	}
+}

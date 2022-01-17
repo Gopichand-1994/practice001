@@ -1,0 +1,1031 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "krishnaadfv216012022"
+		},
+		"himanshuuws-WorkspaceDefaultSqlServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'himanshuuws-WorkspaceDefaultSqlServer'"
+		},
+		"ls_asqldb_logtable_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_asqldb_logtable'"
+		},
+		"ls_krishnablob16012022a_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_krishnablob16012022a'"
+		},
+		"ls_krishnagen216012022a_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_krishnagen216012022a'"
+		},
+		"himanshuuws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://himanshuu1adlsg2.dfs.core.windows.net"
+		},
+		"ls_krishnagen216012022a_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://krishnagen216012022a.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/L0_Country')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CountryTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Country_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"CustomerDataDeltaSource": {},
+									"TargetCountry": {},
+									"CountrySink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:32:38Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L0_IndividualCustomer')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "IndividualCustomerTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "IndividualCustomer_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"CustomerDataDeltaSource": {},
+									"IndividualCustomerSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:32:45Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L0_Item_ProductCategoryDim')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ItemTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Item_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"ProductDataDeltaSource": {},
+									"ItemSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "ProductCategoryDimTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "ProductCategoryDim_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"ProductDataDeltaSource": {},
+									"ProductCategoryDimSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:32:49Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L0_Location')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "LocationTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Location_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"CustomerDataDeltaSource": {},
+									"TargetCountry": {},
+									"TargetLocation": {},
+									"LocationSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:32:54Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L1_Channel')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ChannelTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Channel_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"ResellerDeltaSource": {},
+									"SalesSource": {},
+									"SalesTerritorySource": {},
+									"TargetChannelType": {},
+									"ChannelSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:01Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L1_Country2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Country2Transform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Country2_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"ResellerDeltaSource": {},
+									"TargetCountry": {},
+									"CountrySink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:12Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L1_Location2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Location2Transform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Location2_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"ResellerDeltaSource": {},
+									"TargetCountry": {},
+									"TargetLocation": {},
+									"LocationSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:18Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L1_Product')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ProductTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Product_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"ProductDataDeltaSource": {},
+									"ProductSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:29Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L2_Customer')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CustomerTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Customer_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"CustomerDataDeltaSource": {},
+									"TargetCountry": {},
+									"TargetLocation": {},
+									"CustomerSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:35Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L2_TransactionLineItem')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "TransactionLineItemTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "TransactionLineItem_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"SalesDeltaSource": {},
+									"SalesOrderSource": {},
+									"TransactionLineItemSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:41Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/L3_Transaction')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "TransactionTransform",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Transaction_DataFlow1",
+								"type": "DataFlowReference",
+								"parameters": {
+									"modifiedAfter": "toTimestamp(\"01-01-1900\")",
+									"modifiedBefore": "currentTimestamp()"
+								},
+								"datasetParameters": {
+									"SalesOrderDeltaSource": {},
+									"SalesSource": {},
+									"CustomerDataSource": {},
+									"ResellerSource": {},
+									"TransactionSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:51Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/himanshuuws-WorkspaceDefaultSqlServer')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"DBName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('himanshuuws-WorkspaceDefaultSqlServer_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/himanshuuws-WorkspaceDefaultStorage')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('himanshuuws-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_asqldb_logtable')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_asqldb_logtable_connectionString')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ls_krishna16012022akv",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "asqldb16012022"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime16012022",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_krishnablob16012022a')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_krishnablob16012022a_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime16012022",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_krishnagen216012022a')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_krishnagen216012022a_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_krishnagen216012022a_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime16012022",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/F0_ChannelType_Territory_Channel')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "L0_ChannelType_Territory",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L0_ChannelType_Territory",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "L1_Channel",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "L0_ChannelType_Territory",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L1_Channel",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:33:56Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/L1_Channel')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/F1_Country_Country2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "L0_Country",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L0_Country",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "L1_Country1",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "L0_Country",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L1_Country2",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:34:01Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/L0_Country')]",
+				"[concat(variables('factoryId'), '/pipelines/L1_Country2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/F3_Item_ProductCategoryDim_Product_TransactionLineItem')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "L0_Item_ProductCategoryDim",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L0_Item_ProductCategoryDim",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "L1_Product",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "L0_Item_ProductCategoryDim",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L1_Product",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "L2_TransactionLineItem",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "L1_Product",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L2_TransactionLineItem",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:34:08Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/L0_Item_ProductCategoryDim')]",
+				"[concat(variables('factoryId'), '/pipelines/L1_Product')]",
+				"[concat(variables('factoryId'), '/pipelines/L2_TransactionLineItem')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/F4_Location_Location1_Customer_Transaction')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "L0_Location",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L0_Location",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "L1_Location1",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "L0_Location",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L1_Location2",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "L2_Customer",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "L1_Location1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L2_Customer",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "L3_Transaction",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "L2_Customer",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "L3_Transaction",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "AdventureWorksPipelines"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-11T13:34:13Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/L0_Location')]",
+				"[concat(variables('factoryId'), '/pipelines/L1_Location2')]",
+				"[concat(variables('factoryId'), '/pipelines/L2_Customer')]",
+				"[concat(variables('factoryId'), '/pipelines/L3_Transaction')]"
+			]
+		}
+	]
+}

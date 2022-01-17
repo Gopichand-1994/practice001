@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "krishnaadfv216012022"
+		},
+		"himanshuuws-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"ls_asqldb_logtable_connectionString": {
+			"value": ""
+		},
+		"ls_krishnablob16012022a_connectionString": {
+			"value": ""
+		},
+		"ls_krishnagen216012022a_accountKey": {
+			"value": ""
+		},
+		"himanshuuws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://himanshuu1adlsg2.dfs.core.windows.net"
+		},
+		"ls_krishna16012022akv_properties_typeProperties_baseUrl": {
+			"value": "https://krishna16012022akv.vault.azure.net/"
+		},
+		"ls_krishnagen216012022a_properties_typeProperties_url": {
+			"value": "https://krishnagen216012022a.dfs.core.windows.net"
+		},
+		"us-employment-hours-earnings-national_sasUri": {
+			"value": ""
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
